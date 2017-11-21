@@ -43,7 +43,7 @@ public class MSQLSample : MonoBehaviour
     //3.Delete
     private IEnumerator DeleteMethod()
     {
-        //Delete Bobby's record.
+        //Bobby's record.
         MSQLObject obj = new MSQLObject("Score", "UserName", "Bobby");
         yield return obj.DeleteAync();
     }
