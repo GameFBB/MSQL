@@ -2,19 +2,19 @@
   function connect()
   {
     //Database
-    define('db_host', 'YOUR_DB_HOST');
-    define('db_name', 'YOUR_DB_NAME');
-    define('db_username',  'YOUR_DB_USERNAME');
-    define('db_password', 'YOUR_DB_PASSWORD');
+    define('DatabaseHost', 'YOUR_DATABASE_HOST');
+    define('DatabaseName', 'YOUR_DATABASE_NAME');
+    define('UserName', 'YOUR_USERNAME');
+    define('Password', 'YOUR_PASSWORD');
 
-	//Connect
+    //Connect
     try
     {
-      $dsn = 'mysql:host='.db_host.';dbname='.db_name.';charset=utf8';
-      $dbh = new PDO($dsn, db_username, db_password);
+      $dsn = 'mysql:host=' . DatabaseHost . ';dbname=' . DatabaseName . ';charset=utf8';
+      $dbh = new PDO($dsn, UserName, Password);
       $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    } 
-	catch (PDOException $e)
+    }
+    catch (PDOException $e)
     {
       exit('' . $e->GetMessage());
     }

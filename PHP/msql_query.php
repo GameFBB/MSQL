@@ -4,7 +4,7 @@
   $dbh = connect();
 
   //Argument
-  $method  = $_POST["method"];
+  $method = $_POST["method"];
   $table = $_POST["table"];
   $select = json_decode($_POST["select"], true);
   $where = $_POST["where"];
@@ -27,7 +27,7 @@
     }
     else
     {
-      for ($i = 0;  $i <= (count($select)-1); $i++)
+      for ($i = 0; $i <= (count($select)-1); $i++)
       {
         if ($i > 0)
         {
@@ -46,7 +46,7 @@
     {
       $sql .= ' WHERE ';
 
-      for ($i = 0;  $i <= ($where-1); $i++)
+      for ($i = 0; $i <= ($where-1); $i++)
       {
         if ($i > 0)
         {
@@ -74,7 +74,7 @@
 
     if ($where >= 1)
     {
-      for ($i = 0;  $i <= ($where-1); $i++)
+      for ($i = 0; $i <= ($where-1); $i++)
       {
         $stmt->bindParam(':value'.$i, $value[$i]);
       }
@@ -89,7 +89,7 @@
     var_dump($e->getMessage());
   }
 
-  //json → Unity
+  //json 竊・Unity
   if ($method == 'Find')
   {
     echo json_encode($result); 

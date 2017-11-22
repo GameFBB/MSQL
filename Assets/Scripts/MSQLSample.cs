@@ -1,4 +1,4 @@
-﻿using MSQL;
+using MSQL;
 using System.Collections;
 using UnityEngine;
 
@@ -6,7 +6,7 @@ using UnityEngine;
 /// 
 /// Unity ⇔ PHP ⇔ MySQL
 /// 
-/// Table : Score
+/// Table : Test
 /// 
 /// Field : ObjectId, UserName, Score, Age
 /// 
@@ -24,7 +24,7 @@ public class MSQLSample : MonoBehaviour
     private IEnumerator InsertMethod()
     {
         //Bobby（Score:600, Age:10)
-        MSQLObject obj = new MSQLObject("Score");
+        MSQLObject obj = new MSQLObject("Test");
         obj.Add("UserName", "Bobby");
         obj.Add("Score", "600");
         obj.Add("Age", "10");
@@ -35,7 +35,7 @@ public class MSQLSample : MonoBehaviour
     private IEnumerator UpdateMethod()
     {
         //Bobby(Score:1500)
-        MSQLObject obj = new MSQLObject("Score", "UserName", "Bobby");
+        MSQLObject obj = new MSQLObject("Test", "UserName", "Bobby");
         obj.Add("Score", "1500");
         yield return obj.SaveAync();
     }
@@ -44,7 +44,7 @@ public class MSQLSample : MonoBehaviour
     private IEnumerator DeleteMethod()
     {
         //Bobby's record
-        MSQLObject obj = new MSQLObject("Score", "UserName", "Bobby");
+        MSQLObject obj = new MSQLObject("Test", "UserName", "Bobby");
         yield return obj.DeleteAync();
     }
 
@@ -52,7 +52,7 @@ public class MSQLSample : MonoBehaviour
     private IEnumerator FindMethod()
     {
         //TOP3 (Age >= 40)
-        MSQLQuery query = new MSQLQuery("Score");
+        MSQLQuery query = new MSQLQuery("Test");
         query.Select("UserName", "Score");
         query.Where("Age", ">=", "40");    //bool("true" or "false")
         query.OrderBy("Score", "DESC");    //"ASC" or "DESC"
@@ -79,7 +79,7 @@ public class MSQLSample : MonoBehaviour
     private IEnumerator CountMethod()
     {
         //Score >= 300, Age < 40
-        MSQLQuery query = new MSQLQuery("Score");
+        MSQLQuery query = new MSQLQuery("Test");
         query.Where("Score", ">=", "300");
         query.Where("Age", "<", "40");
         yield return query.CountAync();

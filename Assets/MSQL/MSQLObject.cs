@@ -1,4 +1,4 @@
-﻿using MiniJSON;
+using MiniJSON;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
