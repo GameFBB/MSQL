@@ -25,7 +25,7 @@ namespace MSQL
 
         //Update
         private string _Target = "";
-        private object _TargetValue = "";
+        private string _TargetValue = "";
 
         //Constructor : Insert, Find
         public MSQLObject(string Table)
@@ -39,16 +39,19 @@ namespace MSQL
             //bool -> TINYINT(1)
             if (Convert.ToString(TargetValue) == "True")
             {
-                _TargetValue = 1;
+                _TargetValue = "1";
             }
             else if (Convert.ToString(TargetValue) == "False")
             {
-                _TargetValue = 0;
+                _TargetValue = "0";
+            }
+            else
+            {
+                _TargetValue = Convert.ToString(TargetValue);
             }
 
             _Table = Table;
             _Target = Target;
-            _TargetValue = TargetValue;
 
         }
 

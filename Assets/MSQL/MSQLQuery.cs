@@ -9,7 +9,7 @@ namespace MSQL
     public class MSQLQuery
     {
         //PHP
-        private string URL = "http://YOUR_WEB_SERVER/msql_query.php";
+        private string URL = "http:YOUR_WEB_SERVER/msql_query.php";
 
         //Table
         private string _Table = "";
