@@ -135,7 +135,7 @@ namespace MSQL
             _Select = Json.Serialize(_SelectList);
             Form.AddField("select", _Select);
 
-            WhereCount = Json.Serialize(_TargetList.Count);
+            WhereCount = Convert.ToString(_TargetList.Count);
             Form.AddField("where", WhereCount);
 
             _Target = Json.Serialize(_TargetList);
@@ -157,7 +157,7 @@ namespace MSQL
             }
             else
             {
-                Form.AddField("limit", Json.Serialize(_Limit));
+                Form.AddField("limit", Convert.ToString(_Limit));
             }
 
             return Form;

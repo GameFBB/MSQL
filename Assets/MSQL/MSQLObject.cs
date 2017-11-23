@@ -39,11 +39,11 @@ namespace MSQL
             //bool -> TINYINT(1)
             if (Convert.ToString(TargetValue) == "True")
             {
-                TargetValue = 1;
+                _TargetValue = 1;
             }
             else if (Convert.ToString(TargetValue) == "False")
             {
-                TargetValue = 0;
+                _TargetValue = 0;
             }
 
             _Table = Table;
@@ -120,7 +120,7 @@ namespace MSQL
             Form.AddField("value", _SaveValue);
 
             Form.AddField("target", _Target);
-            Form.AddField("targetValue", Json.Serialize(_TargetValue));
+            Form.AddField("targetValue", Convert.ToString(_TargetValue));
 
             return Form;
         }
