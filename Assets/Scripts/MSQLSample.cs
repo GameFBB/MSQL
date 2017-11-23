@@ -54,7 +54,7 @@ public class MSQLSample : MonoBehaviour
         //TOP3 (Age >= 40)
         MSQLQuery query = new MSQLQuery("Test");
         query.Select("UserName", "Score");
-        query.Where("Age", ">=", "40");    //bool("true" or "false")
+        query.Where("Age", ">=", "40");    //bool(true or false)
         query.OrderBy("Score", "DESC");    //"ASC" or "DESC"
         query.Limit("3");
         yield return query.FindAsync();
@@ -83,7 +83,6 @@ public class MSQLSample : MonoBehaviour
         query.Where("Score", ">=", "300");
         query.Where("Age", "<", "40");
         yield return query.CountAsync();
-
         Debug.Log("Count : " + query.Count);
     }
 }

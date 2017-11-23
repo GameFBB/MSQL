@@ -1,4 +1,5 @@
 using MiniJSON;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +25,7 @@ namespace MSQL
         private string _Operator = "";
         private List<string> _OperatorList = new List<string>();
         private string _Value = "";
-        private List<string> _ValueList = new List<string>();
+        private List<object> _ValueList = new List<object>();
 
         //OrderBy
         private string _Field = "";
@@ -37,7 +38,7 @@ namespace MSQL
         private IList _Result;
 
         //出力
-        public string Count;
+        public int Count;
         public IList Result;
 
         //Constructor
@@ -57,17 +58,19 @@ namespace MSQL
         }
 
         //Where
-        public MSQLQuery Where(string Target, string Operator, string Value)
+        public MSQLQuery Where(string Target, string Operator, object Value)
         {
             //bool -> TINYINT(1)
-            if (Value == "true")
+            if (Convert.ToString(Value) == "True")
             {
-                Value = "1";
+                Value = 1;
             }
-            else if (Value == "false")
+            else if (Convert.ToString(Value) == "False")
             {
-                Value = "0";
+                Value = 0;
             }
+
+            Debug.Log("Value：" + Value);
 
             _TargetList.Add(Target);
             _OperatorList.Add(Operator);
@@ -115,7 +118,7 @@ namespace MSQL
             yield return _Result;
 
             //JSON -> IList
-            Count = _Result.text;
+            Count = Convert.ToInt32(_Result.text);
         }
 
         //Construct HTMLForm
@@ -137,7 +140,7 @@ namespace MSQL
             _Operator = Json.Serialize(_OperatorList);
             Form.AddField("operator", _Operator);
             _Value = Json.Serialize(_ValueList);
-            Form.AddField("value", _Value);
+            Form.AddField("value", Convert.ToString(_Value));
 
             Form.AddField("field", _Field);
             Form.AddField("order", _Order);

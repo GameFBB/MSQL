@@ -1,4 +1,5 @@
 using MiniJSON;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,11 +21,11 @@ namespace MSQL
         private string _SaveField = "";
         private List<string> _SaveFieldList = new List<string>();
         private string _SaveValue = "";
-        private List<string> _SaveValueList = new List<string>();
+        private List<object> _SaveValueList = new List<object>();
 
         //Update
         private string _Target = "";
-        private string _TargetValue = "";
+        private object _TargetValue = "";
 
         //Constructor : Insert, Find
         public MSQLObject(string Table)
@@ -33,16 +34,16 @@ namespace MSQL
         }
 
         //Constructor : Update, Delete
-        public MSQLObject(string Table, string Target, string TargetValue)
+        public MSQLObject(string Table, string Target, object TargetValue)
         {
             //bool -> TINYINT(1)
-            if (TargetValue == "true")
+            if (Convert.ToString(TargetValue) == "True")
             {
-                TargetValue = "1";
+                TargetValue = 1;
             }
-            else if (TargetValue == "false")
+            else if (Convert.ToString(TargetValue) == "False")
             {
-                TargetValue = "0";
+                TargetValue = 0;
             }
 
             _Table = Table;
@@ -51,16 +52,16 @@ namespace MSQL
         }
 
         //Add
-        public MSQLObject Add(string SaveField, string SaveValue)
+        public MSQLObject Add(string SaveField, object SaveValue)
         {
             //bool -> TINYINT(1)
-            if (SaveValue == "true")
+            if (Convert.ToString(SaveValue) == "True")
             {
-                SaveValue = "1";
+                SaveValue = 1;
             }
-            else if (SaveValue == "false")
+            else if (Convert.ToString(SaveValue) == "False")
             {
-                SaveValue = "0";
+                SaveValue = 0;
             }
 
             _SaveFieldList.Add(SaveField);
@@ -117,7 +118,7 @@ namespace MSQL
             Form.AddField("value", _SaveValue);
 
             Form.AddField("target", _Target);
-            Form.AddField("targetValue", _TargetValue);
+            Form.AddField("targetValue", Convert.ToString(_TargetValue));
 
             return Form;
         }

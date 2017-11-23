@@ -8,7 +8,7 @@
   $table = $_POST["table"];
   $target = $_POST["target"];
   $targetValue = $_POST["targetValue"];
-  $field = json_decode($_POST["field"], true); 
+  $field = json_decode($_POST["field"], true);
   $value = json_decode($_POST["value"], true);
   $result = 0;
 
@@ -128,4 +128,5 @@
   $dbh = null;
 
   echo $sql;
+
 ?>
