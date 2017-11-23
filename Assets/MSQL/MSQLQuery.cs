@@ -9,7 +9,7 @@ namespace MSQL
     public class MSQLQuery
     {
         //PHP
-        private string URL = "http:YOUR_WEB_SERVER/msql_query.php";
+        private string URL = "http://YOUR_WEB_SERVER/msql_query.php";
 
         //Table
         private string _Table = "";
@@ -32,7 +32,7 @@ namespace MSQL
         private string _Order = "";
 
         //Limit
-        private int? _Limit = null;
+        private string _Limit = "";
 
         //Result
         private IList _Result;
@@ -90,7 +90,7 @@ namespace MSQL
         //Limit
         public MSQLQuery Limit(int Limit)
         {
-            _Limit = Limit;
+            _Limit = Convert.ToString(Limit);
 
             return this;
         }
@@ -157,7 +157,7 @@ namespace MSQL
             }
             else
             {
-                Form.AddField("limit", Convert.ToString(_Limit));
+                Form.AddField("limit", _Limit);
             }
 
             return Form;

@@ -123,7 +123,7 @@ namespace MSQL
             Form.AddField("value", _SaveValue);
 
             Form.AddField("target", _Target);
-            Form.AddField("targetValue", Convert.ToString(_TargetValue));
+            Form.AddField("targetValue", _TargetValue);
 
             return Form;
         }
