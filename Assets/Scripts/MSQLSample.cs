@@ -26,8 +26,8 @@ public class MSQLSample : MonoBehaviour
         //Bobby（Score:600, Age:10)
         MSQLObject obj = new MSQLObject("Test");
         obj.Add("UserName", "Bobby");
-        obj.Add("Score", "600");
-        obj.Add("Age", "10");
+        obj.Add("Score", 600);
+        obj.Add("Age", 10);
         yield return obj.SaveAsync();
     }
 
@@ -36,7 +36,7 @@ public class MSQLSample : MonoBehaviour
     {
         //Bobby(Score:1500)
         MSQLObject obj = new MSQLObject("Test", "UserName", "Bobby");
-        obj.Add("Score", "1500");
+        obj.Add("Score", 1500);
         yield return obj.SaveAsync();
     }
 
@@ -54,9 +54,9 @@ public class MSQLSample : MonoBehaviour
         //TOP3 (Age >= 40)
         MSQLQuery query = new MSQLQuery("Test");
         query.Select("UserName", "Score");
-        query.Where("Age", ">=", "40");    //bool(true or false)
+        query.Where("Age", ">=", 40);    //bool(true or false)
         query.OrderBy("Score", "DESC");    //"ASC" or "DESC"
-        query.Limit("3");
+        query.Limit(3);
         yield return query.FindAsync();
 
         if (query.Result != null)
@@ -80,8 +80,8 @@ public class MSQLSample : MonoBehaviour
     {
         //Score >= 300, Age < 40
         MSQLQuery query = new MSQLQuery("Test");
-        query.Where("Score", ">=", "300");
-        query.Where("Age", "<", "40");
+        query.Where("Score", ">=", 300);
+        query.Where("Age", "<", 40);
         yield return query.CountAsync();
         Debug.Log("Count : " + query.Count);
     }

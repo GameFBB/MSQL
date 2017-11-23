@@ -49,6 +49,7 @@ namespace MSQL
             _Table = Table;
             _Target = Target;
             _TargetValue = TargetValue;
+
         }
 
         //Add
@@ -66,6 +67,7 @@ namespace MSQL
 
             _SaveFieldList.Add(SaveField);
             _SaveValueList.Add(SaveValue);
+
             return this;
         }
 
@@ -118,7 +120,7 @@ namespace MSQL
             Form.AddField("value", _SaveValue);
 
             Form.AddField("target", _Target);
-            Form.AddField("targetValue", Convert.ToString(_TargetValue));
+            Form.AddField("targetValue", Json.Serialize(_TargetValue));
 
             return Form;
         }

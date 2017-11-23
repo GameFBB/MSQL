@@ -32,7 +32,7 @@ namespace MSQL
         private string _Order = "";
 
         //Limit
-        private string _Limit = "";
+        private int? _Limit = null;
 
         //Result
         private IList _Result;
@@ -54,6 +54,7 @@ namespace MSQL
             {
                 _SelectList.Add(Column[i]);
             }
+
             return this;
         }
 
@@ -70,11 +71,10 @@ namespace MSQL
                 Value = 0;
             }
 
-            Debug.Log("Value：" + Value);
-
             _TargetList.Add(Target);
             _OperatorList.Add(Operator);
             _ValueList.Add(Value);
+
             return this;
         }
 
@@ -83,13 +83,15 @@ namespace MSQL
         {
             _Order = Order;
             _Field = Field;
+
             return this;
         }
 
         //Limit
-        public MSQLQuery Limit(string Limit)
+        public MSQLQuery Limit(int Limit)
         {
             _Limit = Limit;
+
             return this;
         }
 
@@ -128,24 +130,35 @@ namespace MSQL
 
             Form.AddField("method", _Method);
 
+            Form.AddField("table", _Table);
+
             _Select = Json.Serialize(_SelectList);
             Form.AddField("select", _Select);
 
-            Form.AddField("table", _Table);
-
             WhereCount = Json.Serialize(_TargetList.Count);
             Form.AddField("where", WhereCount);
+
             _Target = Json.Serialize(_TargetList);
             Form.AddField("target", _Target);
+
             _Operator = Json.Serialize(_OperatorList);
             Form.AddField("operator", _Operator);
+
             _Value = Json.Serialize(_ValueList);
-            Form.AddField("value", Convert.ToString(_Value));
+            Form.AddField("value", _Value);
 
             Form.AddField("field", _Field);
+
             Form.AddField("order", _Order);
 
-            Form.AddField("limit", _Limit);
+            if (_Limit == null)
+            {
+                Form.AddField("limit", "");
+            }
+            else
+            {
+                Form.AddField("limit", Json.Serialize(_Limit));
+            }
 
             return Form;
         }
