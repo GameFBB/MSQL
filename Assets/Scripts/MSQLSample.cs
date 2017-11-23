@@ -28,7 +28,7 @@ public class MSQLSample : MonoBehaviour
         obj.Add("UserName", "Bobby");
         obj.Add("Score", "600");
         obj.Add("Age", "10");
-        yield return obj.SaveAync();
+        yield return obj.SaveAsync();
     }
 
     //2.Update
@@ -37,7 +37,7 @@ public class MSQLSample : MonoBehaviour
         //Bobby(Score:1500)
         MSQLObject obj = new MSQLObject("Test", "UserName", "Bobby");
         obj.Add("Score", "1500");
-        yield return obj.SaveAync();
+        yield return obj.SaveAsync();
     }
 
     //3.Delete
@@ -45,7 +45,7 @@ public class MSQLSample : MonoBehaviour
     {
         //Bobby's record
         MSQLObject obj = new MSQLObject("Test", "UserName", "Bobby");
-        yield return obj.DeleteAync();
+        yield return obj.DeleteAsync();
     }
 
     //4.Find
@@ -57,7 +57,7 @@ public class MSQLSample : MonoBehaviour
         query.Where("Age", ">=", "40");    //bool("true" or "false")
         query.OrderBy("Score", "DESC");    //"ASC" or "DESC"
         query.Limit("3");
-        yield return query.FindAync();
+        yield return query.FindAsync();
 
         if (query.Result != null)
         {
@@ -82,7 +82,7 @@ public class MSQLSample : MonoBehaviour
         MSQLQuery query = new MSQLQuery("Test");
         query.Where("Score", ">=", "300");
         query.Where("Age", "<", "40");
-        yield return query.CountAync();
+        yield return query.CountAsync();
 
         Debug.Log("Count : " + query.Count);
     }

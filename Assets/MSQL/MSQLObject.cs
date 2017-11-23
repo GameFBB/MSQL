@@ -69,7 +69,7 @@ namespace MSQL
         }
 
         //Save
-        public IEnumerator SaveAync()
+        public IEnumerator SaveAsync()
         {
             //HTMLForm
             if (_Target != "")
@@ -89,7 +89,7 @@ namespace MSQL
         }
 
         //Delete
-        public IEnumerator DeleteAync()
+        public IEnumerator DeleteAsync()
         {
             //HTMLForm
             _Method = "Delete";

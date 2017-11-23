@@ -91,7 +91,7 @@ namespace MSQL
         }
 
         //Find
-        public IEnumerator FindAync()
+        public IEnumerator FindAsync()
         {
             //HTMLForm
             WWWForm Form = ConstructWWWForm("Find");
@@ -105,7 +105,7 @@ namespace MSQL
         }
 
         //Count
-        public IEnumerator CountAync()
+        public IEnumerator CountAsync()
         {
             //HTMLForm
             WWWForm Form = ConstructWWWForm("Count");
