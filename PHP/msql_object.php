@@ -12,7 +12,7 @@
   $value = json_decode($_POST["value"], true);
   $result = 0;
 
-  //Update, Save, Delete
+  //Update, Insert, Delete
   try
   {
     //1.Update
