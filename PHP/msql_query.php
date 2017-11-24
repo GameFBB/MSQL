@@ -89,7 +89,7 @@
     var_dump($e->getMessage());
   }
 
-  //json 遶翫・Unity
+  //json -> Unity
   if ($method == 'Find')
   {
     echo json_encode($result); 
