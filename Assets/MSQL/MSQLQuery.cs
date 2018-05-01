@@ -37,9 +37,20 @@ namespace MSQL
         // Result
         private IList _Result;
 
-        // Return
-        public int Count;
-        public IList Result;
+        public IList Result
+        {
+            get { return _Result; }
+            private set { _Result = value; }
+        }
+
+        // Count
+        private int _Count;
+
+        public int Count
+        {
+            get { return _Count; }
+            private set { _Count = value; }
+        }
 
         // Constructor
         public MSQLQuery(string Table)
@@ -156,18 +167,18 @@ namespace MSQL
             WWWForm Form = ConstructWWWForm("Find");
 
             // HTMLForm → PHP
-            WWW _Result = new WWW(URL, Form);
-            yield return _Result;
+            WWW www = new WWW(URL, Form);
+            yield return www;
 
-            if (_Result == null)
+            if (www == null)
             {
-                Debug.Log(_Result.text);
+                Debug.Log(www.text);
                 yield break;
             }
             else
             {
                 // JSON -> IList
-                Result = ConvertToIList(_Result.text);
+                Result = ConvertToIList(www.text);
             }
         }
 
@@ -178,16 +189,16 @@ namespace MSQL
             WWWForm Form = ConstructWWWForm("Count");
 
             // HTMLForm → PHP
-            WWW _Result = new WWW(URL, Form);
+            WWW www = new WWW(URL, Form);
             yield return _Result;
 
             try
             {
-                Count = Convert.ToInt32(_Result.text);
+                Count = Convert.ToInt32(www.text);
             }
             catch (Exception)
             {
-                Debug.Log(_Result.text);
+                Debug.Log(www.text);
                 yield break;
             }
         }
