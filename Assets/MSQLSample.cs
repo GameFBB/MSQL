@@ -1,4 +1,4 @@
-using MSQL;
+﻿using MSQL;
 using System.Collections;
 using UnityEngine;
 
@@ -17,11 +17,15 @@ public class MSQLSample : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        StartCoroutine(InsertMethod());
+        StartCoroutine(InsertFunction());
+        // StartCoroutine(UpdateFunction());
+        // StartCoroutine(DeleteFunction());
+        // StartCoroutine(FindFunction());
+        // StartCoroutine(CountFunction());
     }
 
     //1.Insert
-    private IEnumerator InsertMethod()
+    private IEnumerator InsertFunction()
     {
         //Bobby（Score:600, Age:10)
         MSQLObject obj = new MSQLObject("Test");
@@ -32,7 +36,7 @@ public class MSQLSample : MonoBehaviour
     }
 
     //2.Update
-    private IEnumerator UpdateMethod()
+    private IEnumerator UpdateFunction()
     {
         //Bobby(Score:1500)
         MSQLObject obj = new MSQLObject("Test", "UserName", "Bobby");
@@ -41,7 +45,7 @@ public class MSQLSample : MonoBehaviour
     }
 
     //3.Delete
-    private IEnumerator DeleteMethod()
+    private IEnumerator DeleteFunction()
     {
         //Bobby's record
         MSQLObject obj = new MSQLObject("Test", "UserName", "Bobby");
@@ -49,7 +53,7 @@ public class MSQLSample : MonoBehaviour
     }
 
     //4.Find
-    private IEnumerator FindMethod()
+    private IEnumerator FindFunction()
     {
         //TOP3 (Age >= 40)
         MSQLQuery query = new MSQLQuery("Test");
@@ -76,7 +80,7 @@ public class MSQLSample : MonoBehaviour
     }
 
     //5.Count
-    private IEnumerator CountMethod()
+    private IEnumerator CountFunction()
     {
         //Score >= 300, Age < 40
         MSQLQuery query = new MSQLQuery("Test");

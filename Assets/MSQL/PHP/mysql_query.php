@@ -1,6 +1,6 @@
 <?php
   //Connect
-  require_once('msql_connect.php');
+  require_once('mysql_connect.php');
   $dbh = connect();
 
   //Argument

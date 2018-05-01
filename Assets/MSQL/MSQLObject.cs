@@ -8,35 +8,35 @@ namespace MSQL
 {
     public class MSQLObject
     {
-        //PHP
-        private string URL = "http://YOUR_WEB_SERVER/msql_object.php";
+        // PHP
+        private string URL = "http://YOUR_WEB_SERVER/mysql_object.php";
 
-        //Method
+        // Method
         private string _Method = "";
 
-        //Table
+        // Table
         private string _Table = "";
 
-        //Add
+        // Add
         private string _SaveField = "";
         private List<string> _SaveFieldList = new List<string>();
         private string _SaveValue = "";
         private List<object> _SaveValueList = new List<object>();
 
-        //Update
+        // Update
         private string _Target = "";
         private string _TargetValue = "";
 
-        //Constructor : Insert, Find
+        // Constructor : Insert, Find
         public MSQLObject(string Table)
         {
             _Table = Table;
         }
 
-        //Constructor : Update, Delete
+        // Constructor : Update, Delete
         public MSQLObject(string Table, string Target, object TargetValue)
         {
-            //bool -> TINYINT(1)
+            // bool -> TINYINT(1)
             if (Convert.ToString(TargetValue) == "True")
             {
                 _TargetValue = "1";
@@ -55,10 +55,10 @@ namespace MSQL
 
         }
 
-        //Add
+        // Add
         public MSQLObject Add(string SaveField, object SaveValue)
         {
-            //bool -> TINYINT(1)
+            // bool -> TINYINT(1)
             if (Convert.ToString(SaveValue) == "True")
             {
                 SaveValue = 1;
@@ -74,40 +74,7 @@ namespace MSQL
             return this;
         }
 
-        //Save
-        public IEnumerator SaveAsync()
-        {
-            //HTMLForm
-            if (_Target != "")
-            {
-                _Method = "Update";
-            }
-            else
-            {
-                _Method = "Insert";
-            }
-            WWWForm Form = ConstructWWWForm(_Method);
-
-            //HTMLForm → PHP
-            WWW _Send = new WWW(URL, Form);
-            yield return _Send;
-            Debug.Log(_Send.text);
-        }
-
-        //Delete
-        public IEnumerator DeleteAsync()
-        {
-            //HTMLForm
-            _Method = "Delete";
-            WWWForm Form = ConstructWWWForm(_Method);
-
-            //HtmlForm → PHP
-            WWW _Send = new WWW(URL, Form);
-            yield return _Send;
-            Debug.Log(_Send.text);
-        }
-
-        //Construct HTMLForm
+        // Construct HTMLForm
         private WWWForm ConstructWWWForm(string Method)
         {
             WWWForm Form = new WWWForm();
@@ -126,6 +93,57 @@ namespace MSQL
             Form.AddField("targetValue", _TargetValue);
 
             return Form;
+        }
+
+        // SaveAsync
+        public IEnumerator SaveAsync()
+        {
+            // HTMLForm
+            if (_Target != "")
+            {
+                _Method = "Update";
+            }
+            else
+            {
+                _Method = "Insert";
+            }
+            WWWForm Form = ConstructWWWForm(_Method);
+
+            // HTMLForm → PHP
+            WWW _Send = new WWW(URL, Form);
+            yield return _Send;
+
+            if (string.IsNullOrEmpty(_Send.error))
+            {
+                Debug.Log(_Send.text);
+            }
+            else
+            {
+                Debug.Log(_Send.error);
+                yield break;
+            }
+        }
+
+        // DeleteAsync
+        public IEnumerator DeleteAsync()
+        {
+            // HTMLForm
+            _Method = "Delete";
+            WWWForm Form = ConstructWWWForm(_Method);
+
+            // HtmlForm → PHP
+            WWW _Send = new WWW(URL, Form);
+            yield return _Send;
+
+            if (string.IsNullOrEmpty(_Send.error))
+            {
+                Debug.Log(_Send.text);
+            }
+            else
+            {
+                Debug.Log(_Send.error);
+                yield break;
+            }
         }
     }
 }

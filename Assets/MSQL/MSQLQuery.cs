@@ -8,17 +8,17 @@ namespace MSQL
 {
     public class MSQLQuery
     {
-        //PHP
-        private string URL = "http://YOUR_WEB_SERVER/msql_query.php";
+        // PHP
+        private string URL = "http://YOUR_WEB_SERVER/mysql_query.php";
 
-        //Table
+        // Table
         private string _Table = "";
 
-        //Select
+        // Select
         private string _Select = "";
         private List<string> _SelectList = new List<string>();
 
-        //Where
+        // Where
         private string WhereCount = "";
         private string _Target = "";
         private List<string> _TargetList = new List<string>();
@@ -27,27 +27,27 @@ namespace MSQL
         private string _Value = "";
         private List<object> _ValueList = new List<object>();
 
-        //OrderBy
+        // OrderBy
         private string _Field = "";
         private string _Order = "";
 
-        //Limit
+        // Limit
         private string _Limit = "";
 
-        //Result
+        // Result
         private IList _Result;
 
-        //出力
+        // Return
         public int Count;
         public IList Result;
 
-        //Constructor
+        // Constructor
         public MSQLQuery(string Table)
         {
             _Table = Table;
         }
 
-        //Select
+        // Select
         public MSQLQuery Select(params string[] Column)
         {
             for (int i = 0; i < Column.Length; ++i)
@@ -58,7 +58,7 @@ namespace MSQL
             return this;
         }
 
-        //Where
+        // Where
         public MSQLQuery Where(string Target, string Operator, object Value)
         {
             //bool -> TINYINT(1)
@@ -78,7 +78,7 @@ namespace MSQL
             return this;
         }
 
-        //OrderBy
+        // OrderBy
         public MSQLQuery OrderBy(string Field, string Order)
         {
             _Order = Order;
@@ -87,7 +87,7 @@ namespace MSQL
             return this;
         }
 
-        //Limit
+        // Limit
         public MSQLQuery Limit(int Limit)
         {
             _Limit = Convert.ToString(Limit);
@@ -95,35 +95,7 @@ namespace MSQL
             return this;
         }
 
-        //Find
-        public IEnumerator FindAsync()
-        {
-            //HTMLForm
-            WWWForm Form = ConstructWWWForm("Find");
-
-            //HTMLForm → PHP
-            WWW _Result = new WWW(URL, Form);
-            yield return _Result;
-
-            //JSON -> IList
-            Result = ConvertToIList(_Result.text);
-        }
-
-        //Count
-        public IEnumerator CountAsync()
-        {
-            //HTMLForm
-            WWWForm Form = ConstructWWWForm("Count");
-
-            //HTMLForm → PHP
-            WWW _Result = new WWW(URL, Form);
-            yield return _Result;
-
-            //JSON -> IList
-            Count = Convert.ToInt32(_Result.text);
-        }
-
-        //Construct HTMLForm
+        // Construct HTMLForm
         private WWWForm ConstructWWWForm(string _Method)
         {
             WWWForm Form = new WWWForm();
@@ -163,10 +135,9 @@ namespace MSQL
             return Form;
         }
 
-        //JSON -> IList
+        // JSON -> IList
         private IList ConvertToIList(string JsonText)
         {
-            Debug.Log(JsonText);
             if (JsonText == "[]")
             {
                 _Result = null;
@@ -176,6 +147,49 @@ namespace MSQL
                 _Result = (IList)Json.Deserialize(JsonText);
             }
             return _Result;
+        }
+
+        // FindAsync
+        public IEnumerator FindAsync()
+        {
+            // HTMLForm
+            WWWForm Form = ConstructWWWForm("Find");
+
+            // HTMLForm → PHP
+            WWW _Result = new WWW(URL, Form);
+            yield return _Result;
+
+            if (Result == null)
+            {
+                Debug.Log(_Result.text);
+                yield break;
+            }
+            else
+            {
+                // JSON -> IList
+                Result = ConvertToIList(_Result.text);
+            }
+        }
+
+        // CountAsync
+        public IEnumerator CountAsync()
+        {
+            // HTMLForm
+            WWWForm Form = ConstructWWWForm("Count");
+
+            // HTMLForm → PHP
+            WWW _Result = new WWW(URL, Form);
+            yield return _Result;
+
+            try
+            {
+                Count = Convert.ToInt32(_Result.text);
+            }
+            catch (Exception)
+            {
+                Debug.Log(_Result.text);
+                yield break;
+            }
         }
     }
 }
