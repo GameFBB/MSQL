@@ -131,7 +131,7 @@ namespace MSQL
             _Method = "Delete";
             WWWForm Form = ConstructWWWForm(_Method);
 
-            // HtmlForm → PHP
+            // HTMLForm → PHP
             WWW _Send = new WWW(URL, Form);
             yield return _Send;
 
