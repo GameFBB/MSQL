@@ -159,7 +159,7 @@ namespace MSQL
             WWW _Result = new WWW(URL, Form);
             yield return _Result;
 
-            if (Result == null)
+            if (_Result == null)
             {
                 Debug.Log(_Result.text);
                 yield break;
