@@ -1,9 +1,9 @@
 <?php
-  //Connect
+  // Connect
   require_once('mysql_connect.php');
   $dbh = connect();
 
-  //Argument
+  // Argument
   $method = $_POST["method"];
   $table = $_POST["table"];
   $target = $_POST["target"];
@@ -12,33 +12,33 @@
   $value = json_decode($_POST["value"], true);
   $result = 0;
 
-  //Update, Insert, Delete
+  // Update, Insert, Delete
   try
   {
-    //1.Update
+    // 1.Update
     if ($method == 'Update')
     {
-      //Search
+      // Search
       $sql = "SELECT * FROM $table WHERE $target = :$target";
       $stmt = $dbh->prepare($sql);
       $stmt->bindParam(":$target", $targetValue);
       $stmt->execute();
       $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-      //NotExist
+      // NotExist
       if (count($result) == 0)
       {
         $method = 'Insert';
         array_unshift($field, $target);
         array_unshift($value, $targetValue);
       }
-      //Exist
+      // Exist
       else if(count($result) == 1)
       {
-        //UPDATE
+        // UPDATE
         $sql = "UPDATE $table";
 
-        //SET
+        // SET
         $sql .= " SET ";
 
         for ($i = 0; $i < count($field); $i++)
@@ -50,10 +50,10 @@
           $sql .= "$field[$i] = :$field[$i]";
         }
 
-        //WHERE
+        // WHERE
         $sql .= " WHERE $target = :$target";
 
-        //SetParameter
+        // SetParameter
         $stmt = $dbh->prepare($sql);
 
         for ($i = 0; $i < count($field); $i++)
@@ -63,15 +63,15 @@
 
         $stmt->bindParam(":$target", $targetValue);
 
-        //Execute
+        // Execute
         $stmt->execute();
       }
     }
 
-    //2.Insert
+    // 2.Insert
     if ($method == 'Insert')
     {
-      //INSERT INTO
+      // INSERT INTO
       $sql = "INSERT INTO $table (";
 
       for ($i = 0; $i < count($field); $i++)
@@ -84,7 +84,7 @@
       }
       $sql .= ')';
 
-      //VALUES
+      // VALUES
       $sql .= ' VALUES (';
       
       for ($i = 0; $i < count($field); $i++)
@@ -97,7 +97,7 @@
       }
       $sql .= ')';
 
-      //SetParameter
+      // SetParameter
       $stmt = $dbh->prepare($sql);
 
       for ($i = 0; $i < count($field); $i++)
@@ -105,11 +105,11 @@
         $stmt->bindParam(":$field[$i]", $value[$i]);
       }
 
-      //Execute
+      // Execute
       $stmt->execute();
     }
 
-    //3.Delete
+    // 3.Delete
     else if ($method == 'Delete')
     {
       $sql = "DELETE FROM $table WHERE $target = :$target";
@@ -123,7 +123,7 @@
     var_dump($e->getMessage());
   }
 
-  //Disconnect
+  // Disconnect
   $stmt = null;
   $dbh = null;
 

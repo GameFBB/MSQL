@@ -1,9 +1,9 @@
 <?php
-  //Connect
+  // Connect
   require_once('mysql_connect.php');
   $dbh = connect();
 
-  //Argument
+  // Argument
   $method = $_POST["method"];
   $table = $_POST["table"];
   $select = json_decode($_POST["select"], true);
@@ -15,10 +15,10 @@
   $order = $_POST["order"];
   $limit = $_POST["limit"];
 
-  //Query
+  // Query
   try
   {
-    //SELECT
+    // SELECT
     $sql = 'SELECT ';
 
     if (count($select) == 0)
@@ -38,10 +38,10 @@
       }
     }
 
-    //FROM
+    // FROM
     $sql .= " FROM $table";
 
-    //WHERE
+    // WHERE
     if ($where >= 1)
     {
       $sql .= ' WHERE ';
@@ -57,19 +57,19 @@
       }
     }
 
-    //ORDER BY
+    // ORDER BY
     if ($field != '')
     {
       $sql .= " ORDER BY $field $order";
     }
 
-    //LIMIT
+    // LIMIT
     if ($limit != '')
     {
       $sql .= " LIMIT $limit";
     }
 
-    //SetParameter
+    // SetParameter
     $stmt = $dbh->prepare($sql);
 
     if ($where >= 1)
@@ -80,7 +80,7 @@
       }
     }
 
-    //Execute
+    // Execute
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);  //AssociativeArray
   } 
@@ -89,7 +89,7 @@
     var_dump($e->getMessage());
   }
 
-  //json -> Unity
+  // json -> Unity
   if ($method == 'Find')
   {
     echo json_encode($result); 
@@ -99,7 +99,7 @@
     echo json_encode(count($result)); 
   }
 
-  //Disconnect
+  // Disconnect
   $stmt = null;
   $dbh = null;
 ?>

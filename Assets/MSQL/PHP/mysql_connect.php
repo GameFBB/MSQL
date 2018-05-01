@@ -1,13 +1,13 @@
 <?php
   function connect()
   {
-    //Database
+    // Database
     define('DatabaseHost', 'YOUR_DATABASE_HOST');
     define('DatabaseName', 'YOUR_DATABASE_NAME');
     define('UserName', 'YOUR_USERNAME');
     define('Password', 'YOUR_PASSWORD');
 
-    //Connect
+    // Connect
     try
     {
       $dsn = 'mysql:host=' . DatabaseHost . ';dbname=' . DatabaseName . ';charset=utf8';

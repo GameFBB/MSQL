@@ -24,10 +24,10 @@ public class MSQLSample : MonoBehaviour
         // StartCoroutine(CountFunction());
     }
 
-    //1.Insert
+    // 1.Insert
     private IEnumerator InsertFunction()
     {
-        //Bobby（Score:600, Age:10)
+        // Bobby（Score:600, Age:10)
         MSQLObject obj = new MSQLObject("Test");
         obj.Add("UserName", "Bobby");
         obj.Add("Score", 600);
@@ -35,31 +35,31 @@ public class MSQLSample : MonoBehaviour
         yield return obj.SaveAsync();
     }
 
-    //2.Update
+    // 2.Update
     private IEnumerator UpdateFunction()
     {
-        //Bobby(Score:1500)
+        // Bobby(Score:1500)
         MSQLObject obj = new MSQLObject("Test", "UserName", "Bobby");
         obj.Add("Score", 1500);
         yield return obj.SaveAsync();
     }
 
-    //3.Delete
+    // 3.Delete
     private IEnumerator DeleteFunction()
     {
-        //Bobby's record
+        // Bobby's record
         MSQLObject obj = new MSQLObject("Test", "UserName", "Bobby");
         yield return obj.DeleteAsync();
     }
 
-    //4.Find
+    // 4.Find
     private IEnumerator FindFunction()
     {
-        //TOP3 (Age >= 40)
+        // TOP3 (Age >= 40)
         MSQLQuery query = new MSQLQuery("Test");
         query.Select("UserName", "Score");
-        query.Where("Age", ">=", 40);    //bool(true or false)
-        query.OrderBy("Score", "DESC");  //"ASC" or "DESC"
+        query.Where("Age", ">=", 40);    // bool(true or false)
+        query.OrderBy("Score", "DESC");  // "ASC" or "DESC"
         query.Limit(3);
         yield return query.FindAsync();
 
@@ -79,10 +79,10 @@ public class MSQLSample : MonoBehaviour
         }
     }
 
-    //5.Count
+    // 5.Count
     private IEnumerator CountFunction()
     {
-        //Score >= 300, Age < 40
+        // Score >= 300, Age < 40
         MSQLQuery query = new MSQLQuery("Test");
         query.Where("Score", ">=", 300);
         query.Where("Age", "<", 40);
