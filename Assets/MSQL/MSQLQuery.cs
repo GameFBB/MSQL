@@ -19,7 +19,7 @@ namespace MSQL
         private List<string> _SelectList = new List<string>();
 
         // Where
-        private string WhereCount = "";
+        private string _WhereCount = "";
         private string _Target = "";
         private List<string> _TargetList = new List<string>();
         private string _Operator = "";
@@ -118,8 +118,8 @@ namespace MSQL
             _Select = Json.Serialize(_SelectList);
             Form.AddField("select", _Select);
 
-            WhereCount = Convert.ToString(_TargetList.Count);
-            Form.AddField("where", WhereCount);
+            _WhereCount = Convert.ToString(_TargetList.Count);
+            Form.AddField("where", _WhereCount);
 
             _Target = Json.Serialize(_TargetList);
             Form.AddField("target", _Target);
