@@ -190,7 +190,7 @@ namespace MSQL
 
             // HTMLForm → PHP
             WWW www = new WWW(URL, Form);
-            yield return _Result;
+            yield return www;
 
             try
             {
